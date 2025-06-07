@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Impasse - Tu Escapada Perfecta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables CSS para Modos Claro y Oscuro */
+        :root {
+            /* Modo Claro (valores por defecto) */
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #555;
+            --header-text: white;
+            --section-bg: white;
+            --section-shadow: rgba(0,0,0,0.1);
+            --list-item-bg: #e9e9e9;
+            --button-bg: #007bff;
+            --button-hover-bg: #0056b3;
+            --button-shadow: rgba(0, 123, 255, 0.3);
+            --footer-bg: #333;
+            --footer-text: white;
+            --border-color: #ddd; /* Un color de borde general */
+        }
+        
+        /* Estilos para el Logo del Hotel */
+        .hotel-logo {
+            display: block; /* Para que ocupe su propia línea y se pueda centrar con margin */
+            margin: 0 auto 20px auto; /* Centra la imagen horizontalmente y añade un margen inferior */
+            max-width: 200px; /* Tamaño máximo del logo, ajustalo según sea necesario */
+            height: auto; /* Mantiene la proporción de la imagen */
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3)); /* Un pequeño efecto de sombra para que resalte */
+            /* Transición para el modo oscuro, si el logo también cambia de color */
+            transition: filter 0.5s;
+        }
+
+        /* Si quieres que el logo tenga una inversión de color en modo oscuro */
+        .dark-mode .hotel-logo {
+            filter: invert(1) drop-shadow(0 0 5px rgba(255,255,255,0.3)); /* Invierte colores en modo oscuro */
+        }
+
+        /* Modo Oscuro */
+        body.dark-mode {
+            --bg-color: #2c2c2c; /* Fondo más oscuro */
+            --text-color: #e0e0e0; /* Texto claro */
+            --header-bg: #1a1a1a; /* Encabezado muy oscuro */
+            --header-text: #f0f0f0;
+            --section-bg: #3a3a3a; /* Secciones oscuras */
+            --section-shadow: rgba(0,0,0,0.4);
+            --list-item-bg: #4a4a4a;
+            --button-bg: #6200ee; /* Púrpura oscuro para el botón */
+            --button-hover-bg: #3700b3;
+            --button-shadow: rgba(98, 0, 238, 0.3);
+            --footer-bg: #1a1a1a;
+            --footer-text: #f0f0f0;
+            --border-color: #555;
+        }
+
+        /* Estilos Generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/1920x600/333/666?text=Fondo+Hotel') no-repeat center center/cover; /* Reemplaza con una imagen de fondo de tu hotel */
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        header .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Secciones de Contenido */
+        .section {
+            background-color: var(--section-bg);
+            margin-bottom: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px var(--section-shadow);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: var(--text-color); /* Hereda el color del texto principal */
+        }
+
+        .section p, .section ul {
+            font-size: 1.1em;
+            text-align: justify;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+        }
+
+        .section ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .section ul li {
+            background-color: var(--list-item-bg);
+            padding: 15px 25px;
+            border-radius: 5px;
+            flex: 1 1 calc(50% - 40px);
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Mantener una sombra más sutil */
+            transition: background-color 0.3s ease;
+        }
+
+        /* Botón del Menú */
+        .menu-button-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .menu-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: var(--button-bg);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px var(--button-shadow);
+        }
+
+        .menu-button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        /* Información de Contacto */
+        .contact-info {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.1em;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        /* Pie de Página */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Botón de Modo Oscuro */
+        .theme-toggle-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px var(--button-shadow);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+
+        .theme-toggle-button:hover {
+            background-color: var(--button-hover-bg);
+            transform: scale(1.05);
+        }
+
+        /* Estilo para el icono del sol/luna (puedes usar un SVG o emoji) */
+        .theme-toggle-button::before {
+            content: '☀️'; /* Icono de sol por defecto */
+        }
+
+        body.dark-mode .theme-toggle-button::before {
+            content: '🌙'; /* Icono de luna en modo oscuro */
+        }
+
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .section h2 {
+                font-size: 2em;
+            }
+
+            .section ul li {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .menu-button {
+                font-size: 1.1em;
+                padding: 15px 30px;
+            }
+
+            .theme-toggle-button {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .section {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        
+        <div class="content">
+            <h1>Hotel Impasse</h1>
+            <img src="https://i.postimg.cc/G2zcYFHs/Captura-desde-2025-06-06-23-24-50.png" alt="Logo Hotel Impasse" class="hotel-logo">
+            <p>Tu oasis de tranquilidad y confort en el corazón de [**una ubicación vibrante / un entorno natural sereno**]. Descansa, relájate y crea recuerdos inolvidables.</p>
+        </div>
+    </header>
+
+
+        <div class="section">
+            <h2>Servicios Destacados</h2>
+            
+            <ul>
+                <li>Recepción 24 horas</li>
+                <li>Wi-Fi de alta velocidad en todo el hotel</li>
+                
+                <li>Estacionamiento privado (sujeto a disponibilidad)</li>
+                
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Descubre Nuestra Gastronomía</h2>
+            <p>En Hotel Impasse, te invitamos a un viaje culinario. Nuestro restaurante ofrece una cuidada selección de platos, desde especialidades locales hasta opciones internacionales, preparados con los ingredientes más frescos.</p>
+
+            <div class="menu-button-container">
+                <a href="https://drive.google.com/file/d/1iV6_eSZGbGuUIrQfQzNH0YV5Ea9fPxn_/view?usp=drive_link" target="_blank" class="menu-button">
+                    Ver Nuestro Menú Completo
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Contáctanos</h2>
+            <p>¿Listo para reservar tu estancia o tienes alguna pregunta? No dudes en contactarnos. Nuestro equipo estará encantado de ayudarte.</p>
+            <div class="contact-info">
+                <p><strong>Teléfono:</strong> +54 11 1234 5678</p>
+                <p><strong>Correo Electrónico:</strong> info@hotelimpass.com</p>
+                <p><strong>Dirección:</strong> Calle Falsa 123, Buenos Aires, Argentina</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Hotel Impasse. Todos los derechos reservados.</p>
+    </footer>
+
+    <button id="theme-toggle" class="theme-toggle-button" aria-label="Alternar modo oscuro/claro"></button>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Función para aplicar el tema guardado o el preferido del sistema
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.classList.toggle('dark-mode', savedTheme === 'dark');
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // Si no hay tema guardado, usa la preferencia del sistema
+                body.classList.add('dark-mode');
+            }
+        }
+
+        // Aplicar el tema al cargar la página
+        applyTheme();
+
+        // Escuchador de eventos para el botón
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode'); // Alterna la clase
+            
+            // Guarda la preferencia en localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+
+</body>
+</html>
